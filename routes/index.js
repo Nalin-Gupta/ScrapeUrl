@@ -53,9 +53,9 @@ router.post('/register' ,ensureGuest ,  async (req , res) => {
         errors.push({msg : 'Passwords do not match'})
     }
 
-    // if(password.length < 8){
-    //     errors.push({msg : 'Password should be of minimum 8 characters'})
-    // }
+    if(password.length < 8){
+        errors.push({msg : 'Password should be of minimum 8 characters'})
+    }
 
 
     //
@@ -121,25 +121,34 @@ router.post('/main' , ensureAuth , async (req , res) => {
                 errors
             });
         }else{
-                
-                const data = await scrape(address);
-                //Saving to DB
-                const url = new Url({
-                    address,
-                    data
-                });
-                const newUrl = await url.save();
-                if(data.length === 0){
-                    // console.log('hit');
-                    errors.push({msg : `Data could not be scrapped from ${address}`})
-                    errors.push({msg : 'Please enter another URL '})
-                }
-                // console.log(data.length);
-                res.render('main', {
-                    data,
-                    errors,
-                });
+                try{
+                    const data = await scrape(address);
 
+                    //Saving to DB
+                    const url = new Url({
+                            address,
+                            data
+                    });
+                    const newUrl = await url.save();
+
+                    if(data.length === 0){
+                        // console.log('hit');
+                        errors.push({msg : `Data could not be scrapped from ${address}`})
+                        errors.push({msg : 'Please enter another URL '})
+                    }
+
+                    res.render('main', {
+                        data,
+                        errors,
+                    });
+                }catch(err){
+                    errors.push({msg : 'The URL entered is not valid'})
+                    res.render('main', {
+                        errors,
+                    });
+                }
+                //check if there was an error while scrapping
+                // console.log(data.length);
         }
 
     }catch(err){

@@ -13,11 +13,11 @@ const scrape = async (address) => {
         ],
      });
     const page = await browser.newPage();
-    await page.goto(address);
-    // await page.screenshot({path : 'wiki.png'});
-    // console.log(divs.length);
-    // console.log(divs[1]);
-    
+    try{
+        await page.goto(address);
+    }catch(err){
+
+    }
     const text = await page.evaluate( () => {
         const paras = document.getElementsByTagName("p");
         // const data = paras[2].textContent;
