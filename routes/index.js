@@ -129,12 +129,16 @@ router.post('/main' , ensureAuth , async (req , res) => {
                             address,
                             data
                     });
-                    const newUrl = await url.save();
+                    
 
                     if(data.length === 0){
                         // console.log('hit');
                         errors.push({msg : `Data could not be scrapped from ${address}`})
                         errors.push({msg : 'Please enter another URL '})
+                    }
+
+                    if(errors.length === 0){
+                        const newUrl = await url.save();
                     }
 
                     res.render('main', {
