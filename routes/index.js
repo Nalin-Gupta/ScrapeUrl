@@ -26,7 +26,7 @@ router.get('/' , ensureGuest , (req , res) => {
 router.post('/' , ensureGuest , passport.authenticate('local' , {
     successRedirect: '/main',
     failureRedirect: '/',
-    // failureFlash : true
+    failureFlash : true
 }) )
 //Register Page
 router.get('/register' , ensureGuest ,  (req , res) => {
