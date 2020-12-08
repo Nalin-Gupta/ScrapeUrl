@@ -7,8 +7,10 @@ const pptr = require('puppeteer');
 
 const scrape = async (address) => {
     const browser = await pptr.launch({
-        headless : true,
-        // slowMo : 250
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+        ],
      });
     const page = await browser.newPage();
     await page.goto(address);
