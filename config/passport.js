@@ -5,9 +5,6 @@ const { init } = require('../models/User');
 //User model
 const User = require('../models/User');
 
-
-
-
 function initialize(passport){
 
     const authenticateUser =  async (name , password , done) => {
@@ -20,11 +17,7 @@ function initialize(passport){
             console.log(err);
             return done(null , false , {message : 'No user exists with that name'});
         }
-       
-        // if(user.name === undefined){
-           
-        // }
-        
+     
         //Check if password matches
         let user =   await User.findOne({name : name})
         if(password === user.password){

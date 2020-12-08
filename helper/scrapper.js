@@ -1,9 +1,4 @@
-// const { text } = require('express');
 const pptr = require('puppeteer');
-
-// const User = require('../models/User');
-// const Url = require('../models/Url');
-
 
 const scrape = async (address) => {
     const browser = await pptr.launch({
@@ -20,7 +15,6 @@ const scrape = async (address) => {
     }
     const text = await page.evaluate( () => {
         const paras = document.getElementsByTagName("p");
-        // const data = paras[2].textContent;
         let arr = [];
         for(let i = 0 ; i< paras.length ; i++){
             arr.push(paras[i].textContent);

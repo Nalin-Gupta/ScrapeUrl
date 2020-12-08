@@ -2,14 +2,8 @@ const express  = require('express');
 const passport = require('passport');
 const {ensureAuth , ensureGuest} = require('../helper/auth');
 
-
-//var
-// let address = 'https://en.wikipedia.org/wiki/HMS_Seraph_(P219)';
 //Puppet
 const scrape = require('../helper/scrapper');
-
-// let ans =  scrape(address);
-// console.log(ans);
 
 //importing the created models
 const User = require('../models/User');
@@ -28,16 +22,16 @@ router.post('/' , ensureGuest , passport.authenticate('local' , {
     failureRedirect: '/',
     failureFlash : true
 }) )
+
+
 //Register Page
 router.get('/register' , ensureGuest ,  (req , res) => {
     res.render('register');
 })
 
-
 //Post Register - Submitting new user details
 router.post('/register' ,ensureGuest ,  async (req , res) => {
     // console.log(req.body);
-    // res.send('hello');
     const name = req.body.name;
     const password = req.body.password;
     const password2 = req.body.password2;
@@ -57,9 +51,6 @@ router.post('/register' ,ensureGuest ,  async (req , res) => {
         errors.push({msg : 'Password should be of minimum 8 characters'})
     }
 
-
-    //
-
     if(errors.length !== 0){
         //There was an error
         res.render('register' , {
@@ -67,7 +58,7 @@ router.post('/register' ,ensureGuest ,  async (req , res) => {
         });
     }
     else{
-        //Successful Validation - 
+        //Successful Validation
         try {
             let user = await User.findOne({ name: name});
             if(user){
@@ -94,12 +85,10 @@ router.post('/register' ,ensureGuest ,  async (req , res) => {
     }
 })
 
-
-//Route to load the landing page one a user loggs in 
+//Route to load the landing page after user loggs in
 router.get('/main' , ensureAuth , (req , res)=> {
     res.render('main');
 })
-
 
 //Route to post URL data and display the URL contents 
 router.post('/main' , ensureAuth , async (req , res) => {
@@ -123,14 +112,12 @@ router.post('/main' , ensureAuth , async (req , res) => {
         }else{
                 try{
                     const data = await scrape(address);
-
                     //Saving to DB
                     const url = new Url({
                             address,
                             data
                     });
                     
-
                     if(data.length === 0){
                         // console.log('hit');
                         errors.push({msg : `Data could not be scrapped from ${address}`})
@@ -151,7 +138,6 @@ router.post('/main' , ensureAuth , async (req , res) => {
                         errors,
                     });
                 }
-                //check if there was an error while scrapping
                 // console.log(data.length);
         }
 
