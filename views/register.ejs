@@ -1,0 +1,33 @@
+<h1>Register as a New User</h1>
+
+<%- include('./partials/errors.ejs') %> 
+<div class="container">
+   <form action="/register" method = "POST">
+    <label for="name">Name</label>
+    <input
+        type="text"
+        id = "name"
+        name= "name"
+        class="name"
+        placeholder="Enter Your Name"
+    />
+    <label for="password">Password</label>
+    <input
+        type="password"
+        id = "password"
+        name= "password"
+        class=""
+        placeholder="Choose a Password"
+    />
+    <label for="password2">Confirm Password</label>
+    <input
+        type="password"
+        id = "password2"
+        name= "password2"
+        class=""
+        placeholder="Re-Enter Password"
+    />
+    <button type="submit" class="btn">Register</button>
+</form>
+<p>Already a User? LogIn <a href="/" class=" "> Here</a></p>
+</div>
