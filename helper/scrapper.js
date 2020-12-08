@@ -7,7 +7,7 @@ const pptr = require('puppeteer');
 
 const scrape = async (address) => {
     const browser = await pptr.launch({
-        args: [
+        'args': [
             '--no-sandbox',
             '--disable-setuid-sandbox',
         ],
