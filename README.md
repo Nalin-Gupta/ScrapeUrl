@@ -2,7 +2,7 @@
 
 > Deployed Website URL : https://backend-assign.herokuapp.com/
 
-> Scrape textContent(paragraphs) from other websites and display it on you website
+> Scrape textContent(paragraphs) from other websites and display it in your application
 
 This app uses Node.js/Express/MongoDB with passport-local for authentication and puppeteer for scraping data
 
